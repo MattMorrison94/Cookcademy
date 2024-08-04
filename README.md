@@ -38,6 +38,6 @@ Welcome to **Cookcademy** – your ultimate cooking companion! Whether you're a 
 
 ## Contact
 
-Matthew Morrison - GitHub
+Contact via Github
 
 Happy Cooking! 🍲
