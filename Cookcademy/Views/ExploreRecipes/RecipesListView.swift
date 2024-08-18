@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipesListView: View {
     @EnvironmentObject private var recipeData: RecipeData
     let category: MainInformation.Category
-    
+
     @State private var isPresenting = false
     @State private var newRecipe = Recipe()
 
@@ -26,17 +26,19 @@ struct RecipesListView: View {
             .foregroundColor(listTextColor)
         }
         .navigationTitle(navigationTitle)
-        .toolbar {
+        .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
+                Button(action: {
+                    newRecipe = Recipe()
+                    newRecipe.mainInformation.category = recipes[0].mainInformation.category
                     isPresenting = true
-                } label: {
+                }, label: {
                     Image(systemName: "plus")
-                }
+                })
             }
-        }
+        })
         .sheet(isPresented: $isPresenting, content: {
-            NavigationStack {
+            NavigationView {
                 ModifyRecipeView(recipe: $newRecipe)
                     .toolbar(content: {
                         ToolbarItem(placement: .cancellationAction) {
