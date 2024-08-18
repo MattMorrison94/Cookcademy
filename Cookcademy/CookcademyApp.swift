@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct CookcademyApp: App {
+    @State private var showLaunchScreen: Bool = true
     var body: some Scene {
         WindowGroup {
-            RecipeCategoryGridView()
+            if showLaunchScreen {
+                AppLaunchView()
+                    .transition(.opacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            withAnimation {
+                                showLaunchScreen = false
+                            }
+                        }
+                    }
+            } else {
+                RecipeCategoryGridView()
+            }
         }
     }
 }
