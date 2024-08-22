@@ -23,7 +23,7 @@ struct CookcademyApp: App {
                         }
                     }
             } else {
-                RecipeCategoryGridView()
+                MainTabView()
             }
         }
     }

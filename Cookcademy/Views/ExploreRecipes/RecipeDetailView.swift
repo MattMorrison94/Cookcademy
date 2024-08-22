@@ -9,10 +9,12 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     @Binding var recipe: Recipe
-    
+
     private let listBackgroundColor = AppColor.background
     private let listTextColor = AppColor.foreground
+
     @State private var isPresenting = false
+    @EnvironmentObject private var recipeData: RecipeData
 
     var body: some View {
         VStack {
@@ -54,15 +56,20 @@ struct RecipeDetailView: View {
                     Button("Edit") {
                         isPresenting = true
                     }
+                    Button(action: {
+                        recipe.isFavorite.toggle()
+                    }) {
+                        Image(systemName: recipe.isFavorite ? "heart.fill" : "heart")
+                    }
                 }
             }
-            ToolbarItem(placement: .topBarLeading) { Text("")}
+            ToolbarItem(placement: .navigationBarLeading) { Text("") }
         }
         .sheet(isPresented: $isPresenting) {
-            NavigationStack {
+            NavigationView {
                 ModifyRecipeView(recipe: $recipe)
                     .toolbar {
-                        ToolbarItem {
+                        ToolbarItem(placement: .confirmationAction) {
                             Button("Save") {
                                 isPresenting = false
                             }
