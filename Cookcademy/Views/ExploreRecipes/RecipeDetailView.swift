@@ -35,7 +35,7 @@ struct RecipeDetailView: View {
                     ForEach(recipe.ingredients.indices, id: \.self) { index in
                         let ingredient = recipe.ingredients[index]
                         Text(ingredient.description)
-                            .foregroundColor(listTextColor)
+                            .foregroundStyle(listTextColor)
                     }
                 }.listRowBackground(listBackgroundColor)
                 Section(header: Text("Directions")) {
@@ -44,7 +44,7 @@ struct RecipeDetailView: View {
                         HStack {
                             Text("\(index + 1). ").bold()
                             Text("\(direction.isOptional ? "(Optional) " : "")\(direction.description)")
-                        }.foregroundColor(listTextColor)
+                        }.foregroundStyle(listTextColor)
                     }
                 }.listRowBackground(listBackgroundColor)
             }
@@ -66,7 +66,7 @@ struct RecipeDetailView: View {
             ToolbarItem(placement: .navigationBarLeading) { Text("") }
         }
         .sheet(isPresented: $isPresenting) {
-            NavigationView {
+            NavigationStack {
                 ModifyRecipeView(recipe: $recipe)
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
@@ -84,7 +84,7 @@ struct RecipeDetailView: View {
 struct RecipeDetailView_Previews: PreviewProvider {
     @State static var recipe = Recipe.testRecipes[0]
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             RecipeDetailView(recipe: $recipe)
         }
     }

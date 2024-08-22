@@ -68,7 +68,7 @@ struct ModifyComponentsView<Component: RecipeComponent, DestinationView: ModifyC
                                    destination: addComponentView)
                         .buttonStyle(PlainButtonStyle())
                         .listRowBackground(listBackgroundColor)
-                }.foregroundColor(listTextColor)
+                }.foregroundStyle(listTextColor)
             }
         }
     }
@@ -78,10 +78,10 @@ struct ModifyComponentsView_Previews: PreviewProvider {
     @State static var recipe = Recipe.testRecipes[1]
     @State static var emptyIngredients = [Ingredient]()
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             ModifyComponentsView<Ingredient, ModifyIngredientView>(components: $recipe.ingredients)
         }
-        NavigationView {
+        NavigationStack {
             ModifyComponentsView<Ingredient, ModifyIngredientView>(components: $emptyIngredients)
         }
     }

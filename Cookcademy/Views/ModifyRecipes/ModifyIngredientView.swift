@@ -53,7 +53,7 @@ struct ModifyIngredientView: ModifyComponentView {
                 Spacer()
             }.listRowBackground(listBackgroundColor)
         }
-        .foregroundColor(listTextColor)
+        .foregroundStyle(listTextColor)
     }
 }
 
@@ -68,7 +68,7 @@ extension NumberFormatter {
 struct ModifyIngredientView_Previews: PreviewProvider {
     @State static var recipe = Recipe.testRecipes[0]
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
            ModifyIngredientView(component: $recipe.ingredients[0]) { ingredient in
                 print(ingredient)
             }.navigationTitle("Add Ingredient")

@@ -37,7 +37,7 @@ struct ModifyDirectionView: ModifyComponentView {
                 Spacer()
             }.listRowBackground(listBackgroundColor)
         }
-        .foregroundColor(listTextColor)
+        .foregroundStyle(listTextColor)
     }
 }
 
@@ -45,7 +45,7 @@ struct ModifyDirectionView_Previews: PreviewProvider {
     @State static var recipe = Recipe.testRecipes[0]
 
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             ModifyDirectionView(component: $recipe.directions[0]) { direction in
                 print(direction)
             }

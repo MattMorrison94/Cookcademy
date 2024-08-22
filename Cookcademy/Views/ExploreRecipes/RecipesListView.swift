@@ -23,7 +23,7 @@ struct RecipesListView: View {
                 NavigationLink(recipe.mainInformation.name, destination: RecipeDetailView(recipe: binding(for: recipe)))
             }
             .listRowBackground(listBackgroundColor)
-            .foregroundColor(listTextColor)
+            .foregroundStyle(listTextColor)
         }
         .navigationTitle(navigationTitle)
         .toolbar(content: {
@@ -38,7 +38,7 @@ struct RecipesListView: View {
             }
         })
         .sheet(isPresented: $isPresenting, content: {
-            NavigationView {
+            NavigationStack {
                 ModifyRecipeView(recipe: $newRecipe)
                     .toolbar(content: {
                         ToolbarItem(placement: .cancellationAction) {
@@ -95,7 +95,7 @@ extension RecipesListView {
 
 struct RecipesListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             RecipesListView(viewStyle: .singleCategory(.breakfast))
         }.environmentObject(RecipeData())
     }
