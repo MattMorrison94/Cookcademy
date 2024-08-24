@@ -8,30 +8,31 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var hideOptionalSteps: Bool = false
+    @AppStorage("hideOptionalDirections") private var hideOptionalDirections: Bool = false
     @AppStorage("listBackgroundColor") private var listBackgroundColor = AppColor.background
     @AppStorage("listTextColor") private var listTextColor = AppColor.foreground
-    
+
     var body: some View {
         NavigationStack {
             Form {
-                ColorPicker("List BackgroundColor", selection: $listBackgroundColor)
+                ColorPicker("List Background Color", selection: $listBackgroundColor)
                     .padding()
                     .listRowBackground(listBackgroundColor)
                 ColorPicker("Text Color", selection: $listTextColor)
                     .padding()
                     .listRowBackground(listBackgroundColor)
-                Toggle("Hide Optional Steps", isOn: $hideOptionalSteps)
+                Toggle("Hide Optional Steps", isOn: $hideOptionalDirections)
                     .padding()
                     .listRowBackground(listBackgroundColor)
             }
-            .scrollContentBackground(.hidden) // removes form background color. 
             .foregroundStyle(listTextColor)
             .navigationTitle("Settings")
         }
     }
 }
 
-#Preview {
-    SettingsView()
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+    }
 }
