@@ -27,6 +27,7 @@ class RecipeData: ObservableObject {
     func add(recipe: Recipe) {
         if recipe.isValid {
             recipes.append(recipe)
+            saveRecipes()
         }
     }
     
@@ -38,4 +39,39 @@ class RecipeData: ObservableObject {
         }
         return nil
     }
+    
+    // Saves recipes to document directory
+    func saveRecipes() {
+        do {
+            let encodedData = try JSONEncoder().encode(recipes)
+            try encodedData.write(to: recipeFilesURL)
+        }
+        catch {
+            fatalError("An error occured while saving recipes: \(error)")
+        }
+    }
+    
+    // Loads saved recipes when the app re-launches
+    func loadRecipes() {
+        guard let data = try? Data(contentsOf: recipeFilesURL) else { return }
+        do {
+            let savedRecipes = try JSONDecoder().decode([Recipe].self, from: data)
+            recipes = savedRecipes
+        }
+        catch {
+            fatalError("An error occured while loading recipes: \(error)")
+        }
+    }
+    
+    // Returns URL of where data is stored.
+    private var recipeFilesURL: URL {
+        do {
+            let documentsDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            return documentsDirectory.appendingPathComponent("recipeData")
+        } catch {
+            fatalError("An error occured while getting the url: \(error)")
+        }
+    }
+    
+    
 }
